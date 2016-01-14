@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 
@@ -47,7 +48,18 @@ def process_message(data):
                 outputs.append([channel, u'{0} {1}'.format(c,shopitem.name)])
                 c += 1
 
+    if text.startswith("sdlist"):
+        shopitems = backend.filter(ListEntry,{'state' : 'tobuy'})
+        if not shopitems:
+            outputs.append([channel, 'Die Liste ist leer oder ich bin doof.'])
+        else:
+            c = 1
+            for shopitem in shopitems:
+                outputs.append([channel, u'{0} {1} - DEBUG: {2}'.format(c,shopitem.name,shopitem)])
+                c += 1
+
     if text.startswith("sdelall"):
         shopitems = backend.filter(ListEntry,{'state' : 'tobuy'})
         shopitems.delete()
+        backend.commit()
         outputs.append([channel, u'So, Liste leer!'])
