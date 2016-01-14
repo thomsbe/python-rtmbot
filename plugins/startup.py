@@ -3,6 +3,6 @@ outputs = []
 
 def canary():
     #NOTE: you must add a real channel ID for this to work
-    outputs.append(["D12345678", "bot started: " + str(time.time())])
+    outputs.append(["C0457J17K", "Solobot started: " + str(time.time())])
 
 canary()
